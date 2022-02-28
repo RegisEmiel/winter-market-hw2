@@ -13,4 +13,17 @@ public class CartItem {
     private int quantity;
     private int pricePerProduct;
     private int price;
+
+    public void incrementQuantity() {
+        quantity += 1;
+        price = pricePerProduct * quantity;
+    }
+
+    public void decrementQuantity() {
+        if (quantity <= 1)
+            return;
+
+        quantity -= 1;
+        price = pricePerProduct * quantity;
+    }
 }
