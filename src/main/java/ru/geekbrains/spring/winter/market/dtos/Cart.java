@@ -20,8 +20,47 @@ public class Cart {
         return Collections.unmodifiableList(items);
     }
 
-    public void add(Product product) { // TODO: Доработать в ДЗ
+    public void add(Product product) {
+        for (CartItem cartItem : items) {
+            if (cartItem.getProductId().equals(product.getId())) {
+                cartItem.incrementQuantity();
+
+                recalculate();
+
+                return;
+            }
+        }
+
         items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
+
+        recalculate();
+    }
+
+    public void clear() {
+        items.clear();
+
+        recalculate();
+    }
+
+    public void decrement(Product product) {
+        for (CartItem cartItem : items) {
+            if (cartItem.getProductId().equals(product.getId())) {
+                cartItem.decrementQuantity();
+
+                recalculate();
+
+                return;
+            }
+        }
+
+        items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
+
+        recalculate();
+    }
+
+    public void removeFromCart(Long productId) {
+        items.removeIf(item -> productId.equals(item.getProductId()));
+
         recalculate();
     }
 

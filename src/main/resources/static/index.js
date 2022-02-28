@@ -29,6 +29,30 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     }
 
+    $scope.clearCart = function(){
+        $http.get('http://localhost:8189/winter/api/v1/cart/clear').then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
+    $scope.removeFromCart = function (productId){
+        $http.get('http://localhost:8189/winter/api/v1/cart/remove?productId='+ productId).then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
+    $scope.incrementProduct = function (productId) {
+        $http.get('http://localhost:8189/winter/api/v1/cart/add/' + productId).then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
+    $scope.decrementProduct = function (productId) {
+        $http.get('http://localhost:8189/winter/api/v1/cart/decrement/' + productId).then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
     $scope.loadProducts();
     $scope.loadCart();
 });

@@ -1,10 +1,7 @@
 package ru.geekbrains.spring.winter.market.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.winter.market.dtos.Cart;
 import ru.geekbrains.spring.winter.market.services.CartService;
 
@@ -22,5 +19,20 @@ public class CartController {
     @GetMapping
     public Cart getCurrentCart() {
         return cartService.getCurrentCart();
+    }
+
+    @GetMapping("/clear")
+    public void clearCart() {
+        cartService.clear();
+    }
+
+    @GetMapping("/decrement/{id}")
+    public void decrementProduct(@PathVariable Long id) {
+        cartService.decrement(id);
+    }
+
+    @GetMapping("/remove")
+    public void removeFromCart(@RequestParam Long productId) {
+        cartService.removeFromCart(productId);
     }
 }
